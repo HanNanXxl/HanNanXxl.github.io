@@ -6,15 +6,15 @@
   
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="今日内容1. 数据库连接池  2. Spring JDBC : JDBC Template  数据库连接池1. 概念：其实就是一个容器(集合)，存放数据库连接的容器。         当系统初始化好后，容器被创建，容器中会申请一些连接对象，当用户来访问数据库时，从容器中获取连接对象，用户访问完之后，会将连接对象归还给容器。  2. 好处：     1. 节约资源     2. 用户访问高效  3.">
+  <meta name="description" content="title: 第一篇博客 date: 2022-04-01 21:46:26  数据库连接池1. 概念：其实就是一个容器(集合)，存放数据库连接的容器。         当系统初始化好后，容器被创建，容器中会申请一些连接对象，当用户来访问数据库时，从容器中获取连接对象，用户访问完之后，会将连接对象归还给容器。  2. 好处：     1. 节约资源     2. 用户访问高效  3. 实现：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://example.com/2022/04/01/Day01---JDBC%E8%BF%9E%E6%8E%A5%E6%B1%A0&JDBCTemplate/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="今日内容1. 数据库连接池  2. Spring JDBC : JDBC Template  数据库连接池1. 概念：其实就是一个容器(集合)，存放数据库连接的容器。         当系统初始化好后，容器被创建，容器中会申请一些连接对象，当用户来访问数据库时，从容器中获取连接对象，用户访问完之后，会将连接对象归还给容器。  2. 好处：     1. 节约资源     2. 用户访问高效  3.">
+<meta property="og:description" content="title: 第一篇博客 date: 2022-04-01 21:46:26  数据库连接池1. 概念：其实就是一个容器(集合)，存放数据库连接的容器。         当系统初始化好后，容器被创建，容器中会申请一些连接对象，当用户来访问数据库时，从容器中获取连接对象，用户访问完之后，会将连接对象归还给容器。  2. 好处：     1. 节约资源     2. 用户访问高效  3. 实现：">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-04-01T14:09:23.483Z">
-<meta property="article:modified_time" content="2020-11-17T00:52:30.582Z">
+<meta property="article:modified_time" content="2022-04-01T14:18:01.016Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -85,9 +85,8 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="今日内容"><a href="#今日内容" class="headerlink" title="今日内容"></a>今日内容</h1><pre><code>1. 数据库连接池
-
-2. Spring JDBC : JDBC Template
+        <pre><code>title: 第一篇博客
+date: 2022-04-01 21:46:26
 </code></pre>
 <h2 id="数据库连接池"><a href="#数据库连接池" class="headerlink" title="数据库连接池"></a>数据库连接池</h2><pre><code>1. 概念：其实就是一个容器(集合)，存放数据库连接的容器。
         当系统初始化好后，容器被创建，容器中会申请一些连接对象，当用户来访问数据库时，从容器中获取连接对象，用户访问完之后，会将连接对象归还给容器。
@@ -198,29 +197,11 @@
         
                close(null,stmt,conn);
             &#125;
-        
-        
-            public static void close(ResultSet rs , Statement stmt, Connection conn)&#123;
-        
-        
-                if(rs != null)&#123;
-                    try &#123;
-                        rs.close();
-                    &#125; catch (SQLException e) &#123;
-                        e.printStackTrace();
-                    &#125;
-                &#125;
-        
-        
-                if(stmt != null)&#123;
-                    try &#123;
-                        stmt.close();
-                    &#125; catch (SQLException e) &#123;
-                        e.printStackTrace();
-                    &#125;
-                &#125;
-        
-                if(conn != null)&#123;
+</code></pre>
+<p>​<br>                public static void close(ResultSet rs , Statement stmt, Connection conn){</p>
+<p>​<br>                    if(rs !&#x3D; null){<br>                        try {<br>                            rs.close();<br>                        } catch (SQLException e) {<br>                            e.printStackTrace();<br>                        }<br>                    }</p>
+<p>​<br>                    if(stmt !&#x3D; null){<br>                        try {<br>                            stmt.close();<br>                        } catch (SQLException e) {<br>                            e.printStackTrace();<br>                        }<br>                    }</p>
+<pre><code>                if(conn != null)&#123;
                     try &#123;
                         conn.close();//归还连接
                     &#125; catch (SQLException e) &#123;
@@ -286,17 +267,9 @@
             public class JdbcTemplateDemo2 &#123;
             
                 //Junit单元测试，可以让方法独立执行
-            
-            
-                //1. 获取JDBCTemplate对象
-                private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
-                /**
-                 * 1. 修改1号数据的 salary 为 10000
-                 */
-                @Test
-                public void test1()&#123;
-            
-                    //2. 定义sql
+</code></pre>
+<p>​<br>                    &#x2F;&#x2F;1. 获取JDBCTemplate对象<br>                    private JdbcTemplate template &#x3D; new JdbcTemplate(JDBCUtils.getDataSource());<br>                    &#x2F;**<br>                     * 1. 修改1号数据的 salary 为 10000<br>                     *&#x2F;<br>                    @Test<br>                    public void test1(){</p>
+<pre><code>                    //2. 定义sql
                     String sql = &quot;update emp set salary = 10000 where id = 1001&quot;;
                     //3. 执行sql
                     int count = template.update(sql);
@@ -383,14 +356,9 @@
                             return emp;
                         &#125;
                     &#125;);
-            
-            
-                    for (Emp emp : list) &#123;
-                        System.out.println(emp);
-                    &#125;
-                &#125;
-            
-                /**
+</code></pre>
+<p>​<br>                        for (Emp emp : list) {<br>                            System.out.println(emp);<br>                        }<br>                    }</p>
+<pre><code>                /**
                  * 6. 查询所有记录，将其封装为Emp对象的List集合
                  */
             
@@ -420,7 +388,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/04/01/Day01---JDBC%E8%BF%9E%E6%8E%A5%E6%B1%A0&JDBCTemplate/" data-id="cl1gi6i0v0000kkus29zdcbas" data-title="" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/04/01/Day01---JDBC%E8%BF%9E%E6%8E%A5%E6%B1%A0&JDBCTemplate/" data-id="cl1gii11u0001jsusg4j63poi" data-title="" class="article-share-link">Share</a>
       
       
       
