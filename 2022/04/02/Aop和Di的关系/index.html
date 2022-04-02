@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>spring的Aop和Di 的关系 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Aop和Di 的关系spring的Aop和Di 的关系从getter和setter开始从开始学习mvc设计模式，或者是jsp异或是框架，必然会有JavaBean或者其他类似的概念出现。getter和setter就是JavaBean中的重要部分，通过这种方式，不需要考虑依赖对象的创建过程，省去了内部出现new的情况，大大降低了耦合性。但是这种方式只是把底层的耦合性降低，依赖关系还是需要高层的Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring的Aop和Di 的关系">
+<meta property="og:url" content="http://example.com/2022/04/02/Aop%E5%92%8CDi%E7%9A%84%E5%85%B3%E7%B3%BB/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Aop和Di 的关系spring的Aop和Di 的关系从getter和setter开始从开始学习mvc设计模式，或者是jsp异或是框架，必然会有JavaBean或者其他类似的概念出现。getter和setter就是JavaBean中的重要部分，通过这种方式，不需要考虑依赖对象的创建过程，省去了内部出现new的情况，大大降低了耦合性。但是这种方式只是把底层的耦合性降低，依赖关系还是需要高层的Java">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-04-02T15:45:00.000Z">
+<meta property="article:modified_time" content="2022-04-02T15:53:22.346Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="texthexo-Aop和Di的关系" class="h-entry article article-type-texthexo" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/04/02/Aop%E5%92%8CDi%E7%9A%84%E5%85%B3%E7%B3%BB/" class="article-date">
+  <time class="dt-published" datetime="2022-04-02T15:45:00.000Z" itemprop="datePublished">2022-04-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      spring的Aop和Di 的关系
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="Aop和Di-的关系"><a href="#Aop和Di-的关系" class="headerlink" title="Aop和Di 的关系"></a>Aop和Di 的关系</h4><h4 id="spring的Aop和Di-的关系"><a href="#spring的Aop和Di-的关系" class="headerlink" title="spring的Aop和Di 的关系"></a>spring的Aop和Di 的关系</h4><h5 id="从getter和setter开始"><a href="#从getter和setter开始" class="headerlink" title="从getter和setter开始"></a>从getter和setter开始</h5><p>从开始学习mvc设计模式，或者是jsp异或是框架，必然会有JavaBean或者其他类似的概念出现。getter和setter就是JavaBean中的重要部分，通过这种方式，不需要考虑依赖对象的创建过程，省去了内部出现new的情况，大大降低了耦合性。但是这种方式只是把底层的耦合性降低，依赖关系还是需要高层的Java程序将依赖对象注入。<br>所以不满足的程序员提出了问题，耦合性的降低是否还可以更进一步？<br>所以就有了ioc和di的出现，很多框架甚至是所有的框架，都实现了ioc的功能 ，spring也不例外而ioc和di的概念也紧随其后，做为spring的功能的解释。<br>之前一直错误的以为ioc和di是因为spring才出现的，实则不然，spring是一个良好的嵌入这两个功能的框架，但这两个功能或者说是思想，是因为需求才出现的，而框架是这些优良思想的具体实现和整合。</p>
+<h5 id="ioc的出现"><a href="#ioc的出现" class="headerlink" title="ioc的出现"></a>ioc的出现</h5><p>ioc，inverse of control，控制反转。直接理解一下就是，将耦合关系的控制权力反转，或者说是将依赖注入的权力反转。本来依赖注入是谁控制的，Java类自己new对象。后来是高层对象创建后，用setter方法注入，而且还增加了高层对象对于依赖对象的维护。ioc的出现就极大的解决了这些问题，ioc容器接管了依赖注入的权力，全部由ioc容器来控制。这就是控制反转，由应用程序控制反转为ioc容器控制。其实，ioc的概念，已经不是仅仅程序的反转控制了，而是完全的外部资源控制。<br>不过，还有一些问题<br>ioc的反转控制没错，但它还内涵了依赖注入的意思。可是字面上并没有体现，所以Martin Fowler 在2004年初的一篇论文中首次提出了di这一名词。</p>
+<h5 id="di的出现"><a href="#di的出现" class="headerlink" title="di的出现"></a>di的出现</h5><p>di，dependency injection，依赖注入。di就是在指ioc容器内实现的将依赖对象注入的概念。<br>而依赖注入这一概念的实现，必然也内涵着权力控制的条件，否则spring没有基础的控制权力，如何注入。</p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>ioc和di一个意思其实并没有错。ioc作为率先提出的概念内涵着一部分概念，不直接，有些难受，就提出了di。很有意思的是，他们都内涵着对方的意思。<br>当然如果你要是强制认为，ioc就是容器，di就是注入这一行为，那么di确实就是ioc的具体功能的实现。而ioc则是di发挥的平台和空间。<br>所以说，ioc和di即是相辅相成的搭档，又是殊途同归的双胞胎。最重要的是，他们都是良好的降低耦合的思想。</p>
+<p>当然，随着技术的发展，两者的概念可能会越来越分离，各自形成一个独立的体系。</p>
+<p>版权声明：本文为CSDN博主「AStar3」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/astar3/article/details/80849233">https://blog.csdn.net/astar3/article/details/80849233</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/04/02/Aop%E5%92%8CDi%E7%9A%84%E5%85%B3%E7%B3%BB/" data-id="cl1i1bc150001esus6l339zty" data-title="spring的Aop和Di 的关系" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/04/01/JDBC%E8%BF%9E%E6%8E%A5%E6%B1%A0&JDBCTemplate/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/04/02/Aop%E5%92%8CDi%E7%9A%84%E5%85%B3%E7%B3%BB/">spring的Aop和Di 的关系</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/01/JDBC%E8%BF%9E%E6%8E%A5%E6%B1%A0&JDBCTemplate/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
