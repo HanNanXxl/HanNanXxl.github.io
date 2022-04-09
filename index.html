@@ -71,6 +71,48 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-pathVariable注解" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/04/09/pathVariable%E6%B3%A8%E8%A7%A3/" class="article-date">
+  <time class="dt-published" datetime="2022-04-09T05:32:06.000Z" itemprop="datePublished">2022-04-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/04/09/pathVariable%E6%B3%A8%E8%A7%A3/">pathVariable注解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="PathVariable主要作用：映射URL绑定的占位符"><a href="#PathVariable主要作用：映射URL绑定的占位符" class="headerlink" title="@PathVariable主要作用：映射URL绑定的占位符"></a><strong>@PathVariable主要作用：映射URL绑定的占位符</strong></h4><p>带占位符的URL是 Spring3.0 新增的功能，URL中的 {xxx} 占位符可以通过 @PathVariable(“xxx”) 绑定到操作方法的入参中</p>
+<h5 id="例如："><a href="#例如：" class="headerlink" title="例如："></a>例如：</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/user/&#123;id&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">testPathVariable</span><span class="params">(<span class="meta">@PathVariable(&quot;id&quot;)</span> String id)</span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;路径上的占位符的值=&quot;</span>+id);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;success&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假如你的请求为localhost:8080&#x2F;user&#x2F;shortLink，可以输出：</p>
+<h6 id="路径上的占位符的值-x3D-shortLink"><a href="#路径上的占位符的值-x3D-shortLink" class="headerlink" title="路径上的占位符的值&#x3D;shortLink"></a>路径上的占位符的值&#x3D;shortLink</h6>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/04/09/pathVariable%E6%B3%A8%E8%A7%A3/" data-id="cl1rfb0u40000hwushdfo5pjl" data-title="pathVariable注解" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="texthexo-aop和di的关系" class="h-entry article article-type-texthexo" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/04/02/aop%E5%92%8Cdi%E7%9A%84%E5%85%B3%E7%B3%BB/" class="article-date">
@@ -448,6 +490,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2022/04/09/pathVariable%E6%B3%A8%E8%A7%A3/">pathVariable注解</a>
+          </li>
         
           <li>
             <a href="/2022/04/02/aop%E5%92%8Cdi%E7%9A%84%E5%85%B3%E7%B3%BB/">spring的aop和di的关系</a>
