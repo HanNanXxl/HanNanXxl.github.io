@@ -18,19 +18,19 @@
   
     <meta name="description" content="数据库连接池1. 概念：其实就是一个容器(集合)，存放数据库连接的容器。         当系统初始化好后，容器被创建，容器中会申请一些连接对象，当用户来访问数据库时，从容器中获取连接对象，用户访问完之后，会将连接对象归还给容器。  2. 好处：     1. 节约资源     2. 用户访问高效  3. 实现：     1. 标准接口：DataSource   javax.sql包下的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="阿雄的博客">
-<meta property="og:url" content="http://example.com/2022/04/01/JDBC%E8%BF%9E%E6%8E%A5%E6%B1%A0&JDBCTemplate/index.html">
+<meta property="og:title" content="数据库连接池（笔记）">
+<meta property="og:url" content="http://example.com/2022/04/13/JDBC%E8%BF%9E%E6%8E%A5%E6%B1%A0&JDBCTemplate/index.html">
 <meta property="og:site_name" content="阿雄的博客">
 <meta property="og:description" content="数据库连接池1. 概念：其实就是一个容器(集合)，存放数据库连接的容器。         当系统初始化好后，容器被创建，容器中会申请一些连接对象，当用户来访问数据库时，从容器中获取连接对象，用户访问完之后，会将连接对象归还给容器。  2. 好处：     1. 节约资源     2. 用户访问高效  3. 实现：     1. 标准接口：DataSource   javax.sql包下的">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-04-01T14:09:23.483Z">
-<meta property="article:modified_time" content="2022-04-02T15:56:16.330Z">
+<meta property="article:published_time" content="2022-04-13T14:03:30.000Z">
+<meta property="article:modified_time" content="2022-05-22T12:45:40.934Z">
 <meta property="article:author" content="xxl">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>阿雄的博客</title>
+  <title>数据库连接池（笔记） - 阿雄的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -193,7 +193,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="数据库连接池（笔记）"></span>
           
         </div>
 
@@ -204,8 +204,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-04-01 22:09" pubdate>
-          2022年4月1日 晚上
+        <time datetime="2022-04-13 22:03" pubdate>
+          2022年4月13日 晚上
         </time>
       </span>
     
@@ -265,7 +265,7 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none"></h1>
+            <h1 style="display: none">数据库连接池（笔记）</h1>
             
             <div class="markdown-body">
               
@@ -381,12 +381,8 @@
 </code></pre>
 <p>​<br>​                public static void close(ResultSet rs , Statement stmt, Connection conn){</p>
 <p>​<br>​                    if(rs !&#x3D; null){<br>​                        try {<br>​                            rs.close();<br>​                        } catch (SQLException e) {<br>​                            e.printStackTrace();<br>​                        }<br>​                    }</p>
-<p>​<br>​                    if(stmt !&#x3D; null){<br>​                        try {<br>​                            stmt.close();<br>​                        } catch (SQLException e) {<br>​                            e.printStackTrace();<br>​                        }<br>​                    }<br>​<br>                    if(conn !&#x3D; null){<br>                        try {<br>                            conn.close();&#x2F;&#x2F;归还连接<br>                        } catch (SQLException e) {<br>                            e.printStackTrace();<br>                        }<br>                    }<br>                }</p>
-<pre><code class="hljs">            /**
-             * 获取连接池方法
-             */
-        
-            public static DataSource getDataSource()&#123;
+<p>​<br>​                    if(stmt !&#x3D; null){<br>​                        try {<br>​                            stmt.close();<br>​                        } catch (SQLException e) {<br>​                            e.printStackTrace();<br>​                        }<br>​                    }<br>​<br>​                    if(conn !&#x3D; null){<br>​                        try {<br>​                            conn.close();&#x2F;&#x2F;归还连接<br>​                        } catch (SQLException e) {<br>​                            e.printStackTrace();<br>​                        }<br>​                    }<br>​                }<br>​<br>                &#x2F;**<br>                 * 获取连接池方法<br>                 *&#x2F;</p>
+<pre><code class="hljs">            public static DataSource getDataSource()&#123;
                 return  ds;
             &#125;
         
@@ -440,17 +436,8 @@
             
                 //Junit单元测试，可以让方法独立执行
 </code></pre>
-<p>​<br>​                    &#x2F;&#x2F;1. 获取JDBCTemplate对象<br>​                    private JdbcTemplate template &#x3D; new JdbcTemplate(JDBCUtils.getDataSource());<br>​                    &#x2F;**<br>​                     * 1. 修改1号数据的 salary 为 10000<br>​                     *&#x2F;<br>​                    @Test<br>​                    public void test1(){<br>​<br>                        &#x2F;&#x2F;2. 定义sql<br>                        String sql &#x3D; “update emp set salary &#x3D; 10000 where id &#x3D; 1001”;<br>                        &#x2F;&#x2F;3. 执行sql<br>                        int count &#x3D; template.update(sql);<br>                        System.out.println(count);<br>                    }</p>
-<pre><code class="hljs">                /**
-                 * 2. 添加一条记录
-                 */
-                @Test
-                public void test2()&#123;
-                    String sql = &quot;insert into emp(id,ename,dept_id) values(?,?,?)&quot;;
-                    int count = template.update(sql, 1015, &quot;郭靖&quot;, 10);
-                    System.out.println(count);
-            
-                &#125;
+<p>​<br>​                    &#x2F;&#x2F;1. 获取JDBCTemplate对象<br>​                    private JdbcTemplate template &#x3D; new JdbcTemplate(JDBCUtils.getDataSource());<br>​                    &#x2F;**<br>​                     * 1. 修改1号数据的 salary 为 10000<br>​                     <em>&#x2F;<br>​                    @Test<br>​                    public void test1(){<br>​<br>​                        &#x2F;&#x2F;2. 定义sql<br>​                        String sql &#x3D; “update emp set salary &#x3D; 10000 where id &#x3D; 1001”;<br>​                        &#x2F;&#x2F;3. 执行sql<br>​                        int count &#x3D; template.update(sql);<br>​                        System.out.println(count);<br>​                    }<br>​<br>                    &#x2F;</em>*<br>                     * 2. 添加一条记录<br>                     *&#x2F;<br>                    @Test<br>                    public void test2(){<br>                        String sql &#x3D; “insert into emp(id,ename,dept_id) values(?,?,?)”;<br>                        int count &#x3D; template.update(sql, 1015, “郭靖”, 10);<br>                        System.out.println(count);</p>
+<pre><code class="hljs">                &#125;
             
                 /**
                  * 3.删除刚才添加的记录
@@ -522,17 +509,8 @@
                         &#125;
                     &#125;);
 </code></pre>
-<p>​<br>​                        for (Emp emp : list) {<br>​                            System.out.println(emp);<br>​                        }<br>​                    }<br>​<br>                    &#x2F;**<br>                     * 6. 查询所有记录，将其封装为Emp对象的List集合<br>                     *&#x2F;</p>
-<pre><code class="hljs">                @Test
-                public void test6_2()&#123;
-                    String sql = &quot;select * from emp&quot;;
-                    List&lt;Emp&gt; list = template.query(sql, new BeanPropertyRowMapper&lt;Emp&gt;(Emp.class));
-                    for (Emp emp : list) &#123;
-                        System.out.println(emp);
-                    &#125;
-                &#125;
-            
-                /**
+<p>​<br>​                        for (Emp emp : list) {<br>​                            System.out.println(emp);<br>​                        }<br>​                    }<br>​<br>​                    &#x2F;**<br>​                     * 6. 查询所有记录，将其封装为Emp对象的List集合<br>​                     *&#x2F;<br>​<br>                    @Test<br>                    public void test6_2(){<br>                        String sql &#x3D; “select * from emp”;<br>                        List<Emp> list &#x3D; template.query(sql, new BeanPropertyRowMapper<Emp>(Emp.class));<br>                        for (Emp emp : list) {<br>                            System.out.println(emp);<br>                        }<br>                    }</p>
+<pre><code class="hljs">                /**
                  * 7. 查询总记录数
                  */
             
@@ -561,8 +539,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
-      <div>http://example.com/2022/04/01/JDBC连接池&amp;JDBCTemplate/</div>
+      <div>数据库连接池（笔记）</div>
+      <div>http://example.com/2022/04/13/JDBC连接池&amp;JDBCTemplate/</div>
     </div>
     <div class="license-meta">
       
@@ -574,7 +552,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年4月1日</div>
+          <div>2022年4月13日</div>
         </div>
       
       
@@ -604,15 +582,21 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/04/02/spring%E7%9A%84aop%E5%92%8Cdi%E7%9A%84%E5%85%B3%E7%B3%BB/" title="spring的aop和di的关系">
+                      <a href="/2022/04/13/HashMap%E7%9A%84%E6%89%A9%E5%AE%B9%E6%9C%BA%E5%88%B6/" title="HashMap的扩容机制（简单版）">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">spring的aop和di的关系</span>
+                        <span class="hidden-mobile">HashMap的扩容机制（简单版）</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2022/04/12/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E7%9A%84%E6%9C%BA%E5%88%B6-%E6%80%BB%E7%BB%93/" title="MySQL数据库事务的机制(总结)">
+                        <span class="hidden-mobile">MySQL数据库事务的机制(总结)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
